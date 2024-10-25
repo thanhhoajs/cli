@@ -11,7 +11,7 @@ ThanhHoa CLI allows you to easily create new ThanhHoaJS projects.
 To install ThanhHoa CLI, you can use `npm`:
 
 ```bash
-npm install -g @thanhhoa/cli
+npm install -g @thanhhoajs/cli
 ```
 
 ## Usage
@@ -21,6 +21,8 @@ To create a new project with ThanhHoaJS:
 ```bash
 thanhhoa new project
 ```
+
+This command will create a directory named `project` containing the source code for the ThanhHoaJS project.
 
 ## Author
 

@@ -1,6 +1,6 @@
 {
   "name": "@thanhhoajs/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ThanhHoa CLI for creating new ThanhHoaJS projects",
   "main": "bin/thanhhoa.js",
   "private": false,
