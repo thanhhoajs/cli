@@ -1,0 +1,21 @@
+{
+  "name": "@thanhhoajs/cli",
+  "version": "0.0.1",
+  "description": "ThanhHoa CLI for creating new ThanhHoaJS projects",
+  "main": "bin/thanhhoa.js",
+  "private": false,
+  "bin": {
+    "thanhhoa": "./bin/thanhhoa.js"
+  },
+  "scripts": {
+    "publish": "npm publish --access public"
+  },
+  "keywords": [
+    "thanhhoajs",
+    "thanhhoa",
+    "cli",
+    "bun"
+  ],
+  "author": "Nguyen Nhu Khanh <kwalker.nnk@gmail.com>",
+  "license": "MIT"
+}
