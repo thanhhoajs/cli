@@ -17,5 +17,9 @@
     "bun"
   ],
   "author": "Nguyen Nhu Khanh <kwalker.nnk@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "ora": "^5.4.1",
+    "chalk": "^4.1.2"
+  }
 }

@@ -1,29 +1,60 @@
 #!/usr/bin/env node
 
 const { execSync } = require("child_process");
+const ora = require("ora");
+const chalk = require("chalk");
 
 const projectName = process.argv[3];
 if (!projectName) {
-  console.error("Please specify the project name.");
+  console.log(chalk.red("⚠️  Please specify the project name."));
   process.exit(1);
 }
 
 const repoUrl = "https://github.com/thanhhoajs/starter.git";
-const command = `git clone --depth=1 ${repoUrl} ${projectName}`;
 
-try {
-  execSync(command, { stdio: "inherit" });
-  process.chdir(projectName);
+async function createProject() {
+  console.log(
+    chalk.cyan(
+      `\n🚀 Creating new ThanhHoaJS project: ${chalk.bold(projectName)}\n`
+    )
+  );
 
-  setTimeout(() => {
-    if (process.platform === "win32") {
-      execSync("rmdir /s /q .git", { stdio: "inherit" });
-    } else {
-      execSync("rm -rf .git", { stdio: "inherit" });
+  const stages = [
+    {
+      text: "Downloading starter template",
+      cmd: `git clone --quiet --depth=1 ${repoUrl} ${projectName}`,
+    },
+    {
+      text: "Setting up project",
+      cmd: process.platform === "win32" ? "rmdir /s /q .git" : "rm -rf .git",
+      cwd: projectName,
+    },
+    {
+      text: "Installing dependencies",
+      cmd: "bun install",
+      cwd: projectName,
+    },
+  ];
+
+  for (const stage of stages) {
+    const spinner = ora(stage.text).start();
+    try {
+      execSync(stage.cmd, {
+        stdio: ["ignore", "ignore", "pipe"],
+        cwd: stage.cwd,
+      });
+      spinner.succeed();
+    } catch (error) {
+      spinner.fail();
+      console.error(chalk.red("\nError: ") + error.message);
+      process.exit(1);
     }
-    console.log(`Project ${projectName} created successfully.`);
-  }, 1000);
-} catch (error) {
-  console.error("Error creating project:", error);
-  process.exit(1);
+  }
+
+  console.log(chalk.green("\n✨ Success!"), "Created", chalk.cyan(projectName));
+  console.log("\nTo get started:");
+  console.log(chalk.cyan(`\n  cd ${projectName}`));
+  console.log(chalk.cyan("  bun dev\n"));
 }
+
+createProject().catch(console.error);
